@@ -8,12 +8,12 @@ var handler = async (m, {
 	try {
 		var xzn
 		switch (command) {
-			case 'tttren':
+			case 'tiktoktrend':
 				xzn = await fetch(API('xzn', 'api/tttrending', {
 					region: body
 				}, 'apikey'))
 				break;
-			case 'asupantt':
+			case 'asupan':
 				xzn = await fetch(API('xzn', 'api/ttsearch', {
 					search: body
 				}, 'apikey'))
@@ -25,7 +25,7 @@ var handler = async (m, {
 		throw e.toString();
 	};
 };
-handler.help = handler.command = ['tttren', 'asupantt'];
+handler.help = handler.command = ['tiktoktrend', 'asupan'];
 handler.tags = ['tiktok'];
 
 module.exports = handler;
