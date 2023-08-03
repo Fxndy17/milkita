@@ -25,13 +25,11 @@ var handler = async (m, {
 		await m.reply('*w r i t i n g. . . *')
 		var response = await fetch(API('xzn', 'api/openai', {
 			text: text,
-			parent: game.ai.id,
-			id: game.ai.mes
+			id: game.ai.id
 		}, 'apikey'))
 		var rep = await response.json();
 		game.ai = {
-			id: rep.parentId,
-			mes: rep.messageId,
+			id: rep.id,
 			is_first: false,
 			last_used: Date.now()
 		}
