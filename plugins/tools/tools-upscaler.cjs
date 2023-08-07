@@ -20,6 +20,7 @@ var handler = async (m, {
 	if (/webp/g.test(mime)) buffer = await getbuffer(await webp2png(img))
 	var upl = await uploadImage(buffer)
 	try {
+		await m.reply('*u p s c a l l i n g. . .*')
 		var a = await getbuffer(API('xzn', 'api/torch-srgan', {
 			url: upl
 		}, 'apikey'))

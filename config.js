@@ -17,9 +17,6 @@ import {
 	serialize
 } from './lib/simple.js';
 protoType();
-global.md5 = md5;
-global.fromBuffer = fileTypeFromBuffer
-global.stream = fileTypeStream
 global.moment = moment
 /*============= WAKTU =============*/
 global.owner = [

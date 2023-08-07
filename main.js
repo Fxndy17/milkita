@@ -66,23 +66,6 @@ loadPluginFiles(pluginFolder, pluginFilter, {
 if (db.data == null) {
 	await loadDatabase()
 }
-global.randomNomor = (min, max = null) => {
-	if (max !== null) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	} else {
-		return Math.floor(Math.random() * min) + 1
-	}
-}
-
-global.toRupiah = (angka) => {
-	var saldo = '';
-	var angkarev = angka.toString().split('').reverse().join('');
-	for (var i = 0; i < angkarev.length; i++)
-		if (i % 3 == 0) saldo += angkarev.substr(i, 3) + '.';
-	return '' + saldo.split('', saldo.length - 1).reverse().join('');
-}
 async function expired() {
 	return new Promise(async (resolve, reject) => {
 		var user = Object.keys(db.data.users)

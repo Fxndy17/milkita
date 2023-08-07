@@ -211,6 +211,14 @@ export async function handler(chatUpdate) {
 					chat.member = {}
 				if (!('isBanned' in chat))
 					chat.isBanned = false
+				if (!('sWelcome' in chat))
+					chat.sWelcome = ''
+				if (!('sBye' in chat))
+					chat.sBye = ''
+				if (!('sPromote' in chat))
+					chat.sPromote = ''
+				if (!('sDemote' in chat))
+					chat.sDemote = ''
 				if (!isNumber(chat.chat))
 					chat.chat = 0
 				if (!isNumber(chat.lastchat))
@@ -225,6 +233,10 @@ export async function handler(chatUpdate) {
 					expired: 0,
 					member: {},
 					isBanned: false,
+					sWelcome: '',
+					sBye: '',
+					sPromote: '',
+					sDemote: '',
 					chat: 0,
 					lastchat: 0,
 					lastseen: 0
@@ -315,7 +327,14 @@ export async function handler(chatUpdate) {
 		var ___dirname = path.join(path.dirname(fileURLToPath(
 			import.meta.url)), './plugins')
 		for (var name in plugins) {
-			var plugin = plugins[name]
+			var plugin
+			if (typeof plugins[name].run === 'function') {
+				var assign = Object.assign(plugins[name].run, plugins[name]);
+				delete ai.run
+				plugin = assign
+			} else {
+				plugin = plugins[name]
+			}
 			if (!plugin)
 				continue
 			if (plugin.disabled)
@@ -524,6 +543,7 @@ export async function handler(chatUpdate) {
 				} catch (e) {
 					// Error occured
 					m.error = e
+					m.limit = 0
 					console.error(e)
 					if (e) {
 						var text = format(e)
@@ -640,17 +660,29 @@ export async function participantsUpdate({
 					try {
 						pp = await this.profilePictureUrl(user, 'image')
 					} catch (e) {} finally {
-						text = (action === 'add' ? (this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-							(this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
+						text = (action === 'add' ? (chat.sWelcome || this.welcome || Connection.conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
+							(chat.sBye || this.bye || Connection.conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
 						this.reply(id, text, null, {
 							contextInfo: {
 								mentionedJid: [user],
-								externalAdReply: await thumb(pp, ['welcome baby', 'have a nice day'])
+								externalAdReply: await thumb(pp, ['welcome baby', 'have a nice day'], [true, true])
 							}
 						})
 					}
 				}
 			}
+			break
+		case 'promote':
+			text = (chat.sPromote || this.spromote || Connection.conn.spromote || '@user ```is now Admin```')
+		case 'demote':
+			if (!text)
+				text = (chat.sDemote || this.sdemote || Connection.conn.sdemote || '@user ```is no longer Admin```')
+			text = text.replace('@user', '@' + participants[0].split('@')[0])
+			if (chat.detect)
+				this.sendMessage(id, {
+					text,
+					mentions: this.parseMention(text)
+				})
 			break
 	}
 }

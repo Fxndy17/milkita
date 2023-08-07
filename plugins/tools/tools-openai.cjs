@@ -22,7 +22,7 @@ var handler = async (m, {
 		last_used: 0
 	}
 	try {
-		await m.reply('*w r i t i n g. . . *')
+		await m.reply('*w r i t i n g. . .*')
 		var response = await fetch(API('xzn', 'api/openai', {
 			text: text,
 			id: game.ai.id
