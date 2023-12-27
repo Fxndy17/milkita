@@ -1,4 +1,4 @@
-## Milkita Bot Powered By [xzn.wtf](https://xzn.wtf)
+## Milkita Bot Powered By [Api'S Skizo](https://skizo.tech)
 
 ---------
 
@@ -46,7 +46,7 @@
 ---------
 
 ## Information
-> This Bot is Powered by [xzn API](https://xzn.wtf)
+> This Bot is Powered by [Api's Skizo](https://skizo.tech)
 
 > Get Apikey On [whatsapp](https://wa.me/6282331033919)
 

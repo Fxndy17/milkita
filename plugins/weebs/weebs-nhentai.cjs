@@ -2,7 +2,7 @@ var handler = async (m, {
 	text,
 	conn
 }) => {
-	if (!text) throw 'perihal apa';
+	if (!text) throw 'Code nuklir nya sir...';
 	var body = text.replace(/\s+/g, '+')
 	if (!/[0-9]/.test(body)) throw ('only number')
 	try {

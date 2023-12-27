@@ -1,29 +1,31 @@
+var uploadFile = require('../../lib/uploadFile.cjs');
 var handler = async (m, {
-	conn
+	command,
+	args,
+	text,
+	usedPrefix
 }) => {
 	try {
-		var uploadFile = require('../../lib/uploadFile.cjs');
 		var q = m.quoted ? m.quoted : m,
 			mime = (q.msg || q).mimetype || ''
 		if (/image/g.test(mime)) {
-			m.reply('*p l e a s e  w a i t. . .*')
-			var img = await uploadFile(await q.download())
-			var bf = (await axios.get(API('xzn', 'api/toanime', {
-				url: img
-			}, 'apikey'), {
-				responseType: 'arraybuffer'
-			})).data
+		  m.reply('*p l e a s e  w a i t. . .*')
+			var res = await fetch(API('xzn', 'api/toanime', {
+				url: await uploadFile(await q.download())
+			}, 'apikey'));
+			if (/text|json/.test(res.headers.get('content-type'))) throw 'Error converting image to anime...';
 			await conn.sendMessage(m.chat, {
-				image: bf,
-				caption: '_iyh_'
+				image: await res.buffer(),
+				caption: '_powered by skizo.tech_'
 			}, {
 				quoted: m
 			})
-		} else throw `Send/reply an image`
+		} else throw 'Send/reply with an image';
 	} catch (e) {
-		m.reply(e.toString())
+		throw e.toString();
 	}
 };
-handler.help = handler.command = ['toanime'];
+
+handler.help = handler.command = ['toanime', 'jadianime'];
 handler.tags = ['weebs'];
 module.exports = handler;

@@ -21,10 +21,16 @@ var handler = async (m, {
 	var upl = await uploadImage(buffer)
 	try {
 		await m.reply('*u p s c a l l i n g. . .*')
-		var a = await getbuffer(API('xzn', 'api/torch-srgan', {
-			url: upl
-		}, 'apikey'))
-		conn.sendFile(m.chat, a, "", "*SUCESS...*", m)
+		var remini = await fetch(API('xzn', 'api/remini', {
+		  url: upl
+		}, 'apikey'));
+		if (/text|json/.test(remini.headers.get('content-type'))) throw 'Error converting image to HD...';
+		await conn.sendMessage(m.chat, {
+				image: await remini.buffer(),
+				caption: '_powered by skizo.tech_'
+			}, {
+				quoted: m
+			})
 	} catch (e) {
 		throw "can't upscaling image"
 	}

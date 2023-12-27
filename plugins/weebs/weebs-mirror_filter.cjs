@@ -13,8 +13,14 @@ var handler = async (m, {
 			var xzn
 			m.reply('_baik sir, gambar semdang di pruses..._')
 			switch (command) {
-				case 'mirror':
+				case 'filter':
 					xzn = await fetch(API('xzn', 'api/aimirror', {
+						url: img,
+						filter: text
+					}, 'apikey'))
+					break;
+				case 'filter_vip':
+					xzn = await fetch(API('xzn', 'api/aimirrorvip', {
 						url: img,
 						filter: text
 					}, 'apikey'))
@@ -23,13 +29,12 @@ var handler = async (m, {
 			var wtf = await xzn.json();
 			if (wtf.status !== 200) throw wtf
 			conn.sendFile(m.chat, await getbuffer(wtf.generated_image_addresses.getRandom()), '.jpg', 'iyh', m)
-
 		} else throw `Send/reply an image`
 	} catch (e) {
 		throw e
 	}
 };
-handler.help = handler.command = ['mirror'];
+handler.help = handler.command = ['filter', 'filter_vip'];
 handler.tags = ['weebs'];
-handler.premium = true
+//handler.premium = true
 module.exports = handler;

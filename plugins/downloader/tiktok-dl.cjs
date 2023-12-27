@@ -1,9 +1,11 @@
 var handler = async (m, {
+	command,
+	args,
 	text,
-	conn
+	usedPrefix
 }) => {
-	var delay = time => new Promise(res => setTimeout(res, time))
-	if (!text) throw 'apakah sudah betul';
+	//var delay = time => new Promise(res => setTimeout(res, time))
+	if (!text) throw `"Bagikan tautan TikTok yang telah kamu bagikan, ya! 🔗✨"`;
 	var body = text.replace(/\s+/g, '+')
 	try {
 		var {
@@ -23,6 +25,7 @@ var handler = async (m, {
 				}, {
 					quoted: m
 				})
+				await delay(1500)
 			}
 		} else {
 			var vid = data.play
@@ -30,11 +33,11 @@ var handler = async (m, {
 			await conn.sendFile(m.chat, vid, '', desc, m)
 		}
 	} catch (e) {
-		m.reply("mana gada hoax hoax")
+		throw e.toString();
 	};
 };
 handler.help = ['tiktok']
-handler.tags = ['tiktok'];
+handler.tags = ['downloader'];
 handler.command = ['tiktok', 'ttdl', 'tt'];
 
 module.exports = handler;

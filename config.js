@@ -35,7 +35,7 @@ global.author = '@x7||skizo'
 global.wm = '©xzn.wtf'
 global.no_wallet = ''
 global.nomorown = '0'
-global.xznkey = 'YOURKEY' // chat atmin buat dapetin apikeynya
+global.xznkey = 'Your_Key' // chat atmin buat dapetin apikeynya
 global.profil = fs.readFileSync("./src/profil.jpg")
 global.anunya = fs.readFileSync("./src/anunya.jpg")
 global.log = function log() {
@@ -44,11 +44,11 @@ global.log = function log() {
 }
 global.APIs = { // API Prefix
 	// name: 'https://website'
-	xzn: 'https://xzn.wtf/'
+	xzn: 'https://skizo.tec/'
 }
 global.APIKeys = { // APIKey Here
 	// 'https://website': 'apikey'
-	'https://xzn.wtf/': xznkey
+	'https://skizo.tech/': xznkey
 }
 global.multiplier = 69
 // Function untuk menghitung keuntungan berdasarkan persentase
